@@ -19,6 +19,10 @@ while True:
     # this address will be change
     cs.connect(('localhost', 65432))
 
+    # Ask the user for the user name then send it to the server
+    username = input("Please enter your username: ")
+    send_message(cs, username)
+
     # Print the options for the main menu
     print("-----------------------------")
     print("-Main menu:")
