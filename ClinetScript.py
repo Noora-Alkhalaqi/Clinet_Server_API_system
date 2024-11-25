@@ -1,19 +1,23 @@
 import socket
 
-def send_message(message):
+def send_message(cs, message):
     '''
-        This function will send the message to the server.
-        
-        '''
-    return cs.sendall(message.encode('utf-8'))
+      This function will send the message to the server.    
+    '''
+    # Use try and except to handel any error in the sending process
+    try:
+        cs.sendall(message.encode('utf-8'))
+    except Exception as e:
+        print(f"Error sending message: {e}")
 
 # This flag used to stop the main while loop
 while True:
 
-    # Creat a socket
-    cs = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
+    # Creat a Tcp socket
+    cs = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    
     # this address will be change
-    cs.connect('localhost', 65432)
+    cs.connect(('localhost', 65432))
 
     # Print the options for the main menu
     print("-----------------------------")
@@ -40,17 +44,17 @@ while True:
             option = int(input("please Enter the number of the service: "))
             if option == 1.1:
                 message = input("Please enter the keyword: ")
-                send_message(message)
+                send_message(cs, message)
 
             elif option == 1.2:
                 print("1.Business 2.General 3.Health 4.Science 5.Sports 6.Technology")
                 message = input("From the list above please enter the categoty: ")
-                send_message(message)
+                send_message(cs, message)
 
             elif option == 1.3:
                 print("1.au 2.ca 3.jp 4.ae 5.sa 6.kr 7.us 8.ma")
                 message = input("From the list above please enter the country: ")
-                send_message(message)
+                send_message(cs, message)
 
             elif option == 1.4:
                 print("four")
@@ -76,17 +80,17 @@ while True:
         if option == 2.1:
             print("1.Business 2.General 3.Health 4.Science 5.Sports 6.Technology")
             message = input("From the list above please enter the categoty: ")
-            send_message(message)
+            send_message(cs, message)
 
         elif option == 2.2:
             print("1.au 2.ca 3.jp 4.ae 5.sa 6.kr 7.us 8.ma")
             message = input("From the list above please enter the country: ")
-            send_message(message)
+            send_message(cs, message)
 
         elif option == 2.3:
             print("1.ar 2.en")
             message = input("From the list above please enter the language: ")
-            send_message(message)
+            send_message(cs, message)
 
         elif option == 2.4:
             print("four")
@@ -101,9 +105,11 @@ while True:
 
     # This elif is used to quit the program 
     elif option == 3:
-        cs.close()
         break
 
     # This else is used to handle the error when we have a misentering of a number
     else:
         print("Option not on the list.")
+
+# Close the Socket
+cs.close()
