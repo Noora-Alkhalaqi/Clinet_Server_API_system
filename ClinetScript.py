@@ -5,13 +5,15 @@ def send_message(message):
         This function will send the message to the server.
         
         '''
-    return cs.sendto(message.encode('ascii'),('127.0.0.2', 4122))
+    return cs.sendall(message.encode('utf-8'))
 
 # This flag used to stop the main while loop
 while True:
 
     # Creat a socket
     cs = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
+    # this address will be change
+    cs.connect('localhost', 65432)
 
     # Print the options for the main menu
     print("-----------------------------")
@@ -99,6 +101,7 @@ while True:
 
     # This elif is used to quit the program 
     elif option == 3:
+        cs.close()
         break
 
     # This else is used to handle the error when we have a misentering of a number
