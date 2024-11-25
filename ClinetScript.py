@@ -1,6 +1,10 @@
+import socket
+
 # This flag used to stop the main while loop
-flag = True
-while flag:
+while True:
+
+    cs = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
+    
     # Print the options for the main menu
     print("-----------------------------\n-Main menu:\n1-Search headlines \n2-List of Sources\n3-Quit")
     # Ask the user to enter the number of the option selected
@@ -48,7 +52,7 @@ while flag:
 
     # This elif is used to quit the program 
     elif option == 3:
-        flag = False
+        break
 
     # This else is used to handle the error when we have a misentering of a number
     else:
