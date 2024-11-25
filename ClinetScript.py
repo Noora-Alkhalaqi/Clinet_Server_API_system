@@ -1,5 +1,12 @@
 import socket
 
+def send_message(message):
+    '''
+        This function will send the message to the server.
+        
+        '''
+    return cs.sendto(message.encode('ascii'),('127.0.0.2', 4122))
+
 # This flag used to stop the main while loop
 while True:
 
@@ -30,14 +37,18 @@ while True:
             # Ask the user to enter the option from the Search headlines menu
             option = int(input("please Enter the number of the service: "))
             if option == 1.1:
-                input("Please enter the keyword: ")
+                message = input("Please enter the keyword: ")
+                send_message(message)
+
             elif option == 1.2:
                 print("1.Business 2.General 3.Health 4.Science 5.Sports 6.Technology")
-                input("From the list above please enter the categoty: ")
+                message = input("From the list above please enter the categoty: ")
+                send_message(message)
 
             elif option == 1.3:
                 print("1.au 2.ca 3.jp 4.ae 5.sa 6.kr 7.us 8.ma")
-                input("From the list above please enter the country: ")
+                message = input("From the list above please enter the country: ")
+                send_message(message)
 
             elif option == 1.4:
                 print("four")
@@ -62,15 +73,18 @@ while True:
         option = int(input("please Enter the number of the service: "))
         if option == 2.1:
             print("1.Business 2.General 3.Health 4.Science 5.Sports 6.Technology")
-            input("From the list above please enter the categoty: ")
+            message = input("From the list above please enter the categoty: ")
+            send_message(message)
 
         elif option == 2.2:
             print("1.au 2.ca 3.jp 4.ae 5.sa 6.kr 7.us 8.ma")
-            input("From the list above please enter the country: ")
+            message = input("From the list above please enter the country: ")
+            send_message(message)
 
         elif option == 2.3:
             print("1.ar 2.en")
-            input("From the list above please enter the language: ")
+            message = input("From the list above please enter the language: ")
+            send_message(message)
 
         elif option == 2.4:
             print("four")
