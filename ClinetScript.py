@@ -30,15 +30,20 @@ while True:
             # Ask the user to enter the option from the Search headlines menu
             option = int(input("please Enter the number of the service: "))
             if option == 1.1:
-                print("one")
+                input("Please enter the keyword: ")
             elif option == 1.2:
-                print("two")
+                print("1.Business 2.General 3.Health 4.Science 5.Sports 6.Technology")
+                input("From the list above please enter the categoty: ")
+
             elif option == 1.3:
-                print("three")
+                print("1.au 2.ca 3.jp 4.ae 5.sa 6.kr 7.us 8.ma")
+                input("From the list above please enter the country: ")
+
             elif option == 1.4:
                 print("four")
+
             elif option == 1.5:
-                print("five")
+                print("Back to the main menu.")
                 break
             # This else is used to handle the error when we have a misentering of a number
             else:
@@ -51,21 +56,29 @@ while True:
         print("2.1- Search by category will allow you to select the sources by category.")
         print("2.2- Search by country will allow you to select sources by country")
         print("2.3- Search by language will allow you to select sources language.")
-        print("2.4- List all")
+        print("2.4- List all will allow you to select sources with no specific preference")
         print("2.5- Back to the main menu will take you back to the main menu.")
 
         option = int(input("please Enter the number of the service: "))
         if option == 2.1:
-            print("one")
+            print("1.Business 2.General 3.Health 4.Science 5.Sports 6.Technology")
+            input("From the list above please enter the categoty: ")
+
         elif option == 2.2:
-            print("two")
+            print("1.au 2.ca 3.jp 4.ae 5.sa 6.kr 7.us 8.ma")
+            input("From the list above please enter the country: ")
+
         elif option == 2.3:
-            print("three")
+            print("1.ar 2.en")
+            input("From the list above please enter the language: ")
+
         elif option == 2.4:
             print("four")
+
         elif option == 2.5:
             print("five")
             break
+
         # This else is used to handle the error when we have a misentering of a number
         else:
             print("Option not on the list.")
