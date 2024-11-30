@@ -48,10 +48,6 @@ def language_list():
     return message
 
 
-# Ask for the clinet username
-username = input("Please enter your username: ")
-send_message(cs, username)
-
 while True:
 
     # Creat a Tcp socket
