@@ -20,6 +20,15 @@ def receive_message(cs):
         if not cs:
             break
 
+def category_list():
+    ''' 
+    This function will display the category list and ask the user to enter the wanted category.
+    return the category name.
+    '''
+    print("1.Business 2.General 3.Health 4.Science 5.Sports 6.Technology")
+    message = input("From the list above please enter the category: ")
+    return message
+
 while True:
 
     # Creat a Tcp socket
@@ -61,8 +70,7 @@ while True:
                 receive_message(cs)
 
             elif option == 2:
-                print("1.Business 2.General 3.Health 4.Science 5.Sports 6.Technology")
-                message = input("From the list above please enter the categoty: ")
+                message = category_list
                 send_message(cs, message)
                 receive_message(cs)
 
