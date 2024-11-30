@@ -2,6 +2,8 @@ import socket
 import threading
 import json
 
+API-Key = "5d0fd747e02946bb8f1db8e5558ba8a5"
+
 def start_server(host='localhost', port=65432):
     """
     Creates a TCP server socket, binds it to the given host and port,
