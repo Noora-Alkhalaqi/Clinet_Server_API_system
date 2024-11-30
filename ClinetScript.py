@@ -29,6 +29,15 @@ def category_list():
     message = input("From the list above please enter the category: ")
     return message
 
+def country_list():
+    ''' 
+    This function will display the country list and ask the user to enter the wanted cuntry.
+    return the country name.
+    '''
+    print("1.au 2.ca 3.jp 4.ae 5.sa 6.kr 7.us 8.ma")
+    message = input("From the list above please enter the country: ")
+    return message
+
 while True:
 
     # Creat a Tcp socket
@@ -70,13 +79,12 @@ while True:
                 receive_message(cs)
 
             elif option == 2:
-                message = category_list
+                message = category_list()
                 send_message(cs, message)
                 receive_message(cs)
 
             elif option == 3:
-                print("1.au 2.ca 3.jp 4.ae 5.sa 6.kr 7.us 8.ma")
-                message = input("From the list above please enter the country: ")
+                message = country_list()
                 send_message(cs, message)
                 receive_message(cs)
 
@@ -102,14 +110,12 @@ while True:
 
         option = int(input("please Enter the number of the service: "))
         if option == 1:
-            print("1.Business 2.General 3.Health 4.Science 5.Sports 6.Technology")
-            message = input("From the list above please enter the categoty: ")
+            message = category_list()
             send_message(cs, message)
             receive_message(cs)
 
         elif option == 2:
-            print("1.au 2.ca 3.jp 4.ae 5.sa 6.kr 7.us 8.ma")
-            message = input("From the list above please enter the country: ")
+            message = country_list()
             send_message(cs, message)
             receive_message(cs)
 
