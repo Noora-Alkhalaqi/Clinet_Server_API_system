@@ -31,11 +31,20 @@ def category_list():
 
 def country_list():
     ''' 
-    This function will display the country list and ask the user to enter the wanted cuntry.
+    This function will display the country list and ask the user to enter the wanted country.
     return the country name.
     '''
     print("1.au 2.ca 3.jp 4.ae 5.sa 6.kr 7.us 8.ma")
     message = input("From the list above please enter the country: ")
+    return message
+
+def language_list():
+    ''' 
+    This function will display the language list and ask the user to enter the wanted language.
+    return the language name.
+    '''
+    print("1.ar 2.en")
+    message = input("From the list above please enter the language: ")
     return message
 
 while True:
@@ -120,8 +129,7 @@ while True:
             receive_message(cs)
 
         elif option == 3:
-            print("1.ar 2.en")
-            message = input("From the list above please enter the language: ")
+            message = language_list()
             send_message(cs, message)
             receive_message(cs)
 
