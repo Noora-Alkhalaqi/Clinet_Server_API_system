@@ -10,7 +10,16 @@ def send_message(cs, message):
     except Exception as e:
         print(f"Error sending message: {e}")
 
-# This flag used to stop the main while loop
+def receive_message(cs):
+    ''' 
+    This function will receive the message from the server. 
+    '''
+    while True:
+        recv_data = cs.recv(1024)
+        print(cs.decode('ascii'))
+        if not cs:
+            break
+
 while True:
 
     # Creat a Tcp socket
@@ -49,16 +58,19 @@ while True:
             if option == 1:
                 message = input("Please enter the keyword: ")
                 send_message(cs, message)
+                receive_message(cs)
 
             elif option == 2:
                 print("1.Business 2.General 3.Health 4.Science 5.Sports 6.Technology")
                 message = input("From the list above please enter the categoty: ")
                 send_message(cs, message)
+                receive_message(cs)
 
             elif option == 3:
                 print("1.au 2.ca 3.jp 4.ae 5.sa 6.kr 7.us 8.ma")
                 message = input("From the list above please enter the country: ")
                 send_message(cs, message)
+                receive_message(cs)
 
             elif option == 4:
                 print("four")
@@ -85,16 +97,19 @@ while True:
             print("1.Business 2.General 3.Health 4.Science 5.Sports 6.Technology")
             message = input("From the list above please enter the categoty: ")
             send_message(cs, message)
+            receive_message(cs)
 
         elif option == 2:
             print("1.au 2.ca 3.jp 4.ae 5.sa 6.kr 7.us 8.ma")
             message = input("From the list above please enter the country: ")
             send_message(cs, message)
+            receive_message(cs)
 
         elif option == 3:
             print("1.ar 2.en")
             message = input("From the list above please enter the language: ")
             send_message(cs, message)
+            receive_message(cs)
 
         elif option == 4:
             print("four")
