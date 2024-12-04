@@ -1,156 +1,164 @@
 import socket
+import pickle
 
 def send_message(cs, message):
-    '''
-      This function will send the message to the server.    
-    '''
-    # Use try and except to handel any error in the sending process
+    ''' Sends the message to the server. '''
     try:
         cs.sendall(message.encode('utf-8'))
     except Exception as e:
         print(f"Error sending message: {e}")
 
 def receive_message(cs):
-    ''' 
-    This function will receive the message from the server. 
-    '''
-    while True:
-        recv_data = cs.recv(1024)
-        print(cs.decode('ascii'))
-        if not cs:
-            break
+    ''' Receives the message from the server. '''
+    try:
+        recv_data = cs.recv(4096)  # Increased buffer size to handle larger messages
+        if not recv_data:
+            print("No data received. Connection may have been closed.")
+            return
+        
+        # Deserialize the received data
+        data_list = pickle.loads(recv_data)
+        for entry in data_list:
+            print(entry)
+    except Exception as e:
+        print(f"Error receiving message: {e}")
 
 def category_list():
-    ''' 
-    This function will display the category list and ask the user to enter the wanted category.
-    return the category name.
-    '''
-    print("1.Business 2.General 3.Health 4.Science 5.Sports 6.Technology")
-    message = input("From the list above please enter the category: ")
+    ''' Displays the category list and returns the selected category. '''
+    print("1. Business 2. General 3. Health 4. Science 5. Sports 6. Technology")
+    message = input("From the list above please enter the category (not the number): ")
     return message
 
 def country_list():
-    ''' 
-    This function will display the country list and ask the user to enter the wanted country.
-    return the country name.
-    '''
-    print("1.au 2.ca 3.jp 4.ae 5.sa 6.kr 7.us 8.ma")
-    message = input("From the list above please enter the country: ")
+    ''' Displays the country list and returns the selected country. '''
+    print("1. au 2. ca 3. jp 4. ae 5. sa 6. kr 7. us 8. ma")
+    message = input("From the list above please enter the country (not the number): ")
     return message
 
 def language_list():
-    ''' 
-    This function will display the language list and ask the user to enter the wanted language.
-    return the language name.
-    '''
-    print("1.ar 2.en")
-    message = input("From the list above please enter the language: ")
+    ''' Displays the language list and returns the selected language. '''
+    print("1. ar 2. en")
+    message = input("From the list above please enter the language (not the number): ")
     return message
 
-
 while True:
-
-    # Creat a Tcp socket
+    # Create a TCP socket
     cs = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     
-    # this address will be change
+    # Connect to the server
     cs.connect(('localhost', 65432))
 
-    # Ask the user for the user name then send it to the server
+    # Ask the user for the username, then send it to the server
     username = input("Please enter your username: ")
     send_message(cs, username)
 
     # Print the options for the main menu
     print("-----------------------------")
-    print("-Main menu:")
-    print("1-Search headlines will takes you to the Headlines menu.")
-    print("2-List of Sources will take you to the Sources menue.")
-    print("3-Quit will terminates the connection and client")
+    print("- Main menu:")
+    print("1 - Search headlines")
+    print("2 - List of Sources")
+    print("3 - Quit")
 
     # Ask the user to enter the number of the option selected
-    option = int(input("please Enter the number of the service: "))
+    try:
+        option = int(input("Please enter the number of the service: "))
+    except ValueError:
+        print("Invalid input. Please enter a number.")
+        continue
 
-    # The user will be taken to the Search headlines menu when number one is entered
+    # Handle search headlines menu
     if option == 1:
         while True:
             print("-----------------------------")
-            print("-Search headlines menu:")
-            print("1. Search for keywords will allow you to search in the news for a keyword in the news.")
-            print("2. Search by category will allow you to select the news by category.")
-            print("3. Search by country will allow you to select news by country")
-            print("4. List all new headlines will allow you to  select news with no specific preference.")
-            print("5. Back to the main menu will take you back to the main menu.")
+            print("- Search headlines menu:")
+            print("1. Search for keywords")
+            print("2. Search by category")
+            print("3. Search by country")
+            print("4. List all news headlines")
+            print("5. Back to the main menu")
 
-            # Ask the user to enter the option from the Search headlines menu
-            option = int(input("please Enter the number of the service: "))
+            try:
+                option = int(input("Please enter the number of the service: "))
+            except ValueError:
+                print("Invalid input. Please enter a number.")
+                continue
+
             if option == 1:
                 message = input("Please enter the keyword: ")
-                send_message(cs, message)
+                send_message(cs, f"1-1-{message}")  # Sending keyword search request
                 receive_message(cs)
 
             elif option == 2:
-                message = category_list()
-                send_message(cs, message)
+                category = category_list()
+                send_message(cs, f"1-2-{category}")  # Sending category search request
                 receive_message(cs)
 
             elif option == 3:
-                message = country_list()
-                send_message(cs, message)
+                country = country_list()
+                send_message(cs, f"1-3-{country}")  # Sending country search request
                 receive_message(cs)
 
             elif option == 4:
-                print("four")
+                print("Requesting all headlines.")
+                send_message(cs, "1-4-")  # Requesting all headlines
+                receive_message(cs)
 
             elif option == 5:
                 print("Back to the main menu.")
                 break
-            # This else is used to handle the error when we have a misentering of a number
+
             else:
                 print("Option not on the list.")
 
-    # The user will be taken to the List of Sources menu when number two is entered
+    # Handle list of sources menu
     elif option == 2:
-        print("-----------------------------")
-        print("-List of Sources menu:")
-        print("1. Search by category will allow you to select the sources by category.")
-        print("2. Search by country will allow you to select sources by country")
-        print("3. Search by language will allow you to select sources language.")
-        print("4. List all will allow you to select sources with no specific preference")
-        print("5. Back to the main menu will take you back to the main menu.")
+        while True:
+            print("-----------------------------")
+            print("- List of Sources menu:")
+            print("1. Search by category")
+            print("2. Search by country")
+            print("3. Search by language")
+            print("4. List all sources")
+            print("5. Back to the main menu")
 
-        option = int(input("please Enter the number of the service: "))
-        if option == 1:
-            message = category_list()
-            send_message(cs, message)
-            receive_message(cs)
+            try:
+                option = int(input("Please enter the number of the service: "))
+            except ValueError:
+                print("Invalid input. Please enter a number.")
+                continue
 
-        elif option == 2:
-            message = country_list()
-            send_message(cs, message)
-            receive_message(cs)
+            if option == 1:
+                category = category_list()
+                send_message(cs, f"2-1-{category}")  # Sending category search request
+                receive_message(cs)
 
-        elif option == 3:
-            message = language_list()
-            send_message(cs, message)
-            receive_message(cs)
+            elif option == 2:
+                country = country_list()
+                send_message(cs, f"2-2-{country}")  # Sending country search request
+                receive_message(cs)
 
-        elif option == 4:
-            print("four")
+            elif option == 3:
+                language = language_list()
+                send_message(cs, f"2-3-{language}")  # Sending language search request
+                receive_message(cs)
 
-        elif option == 5:
-            print("five")
-            break
+            elif option == 4:
+                print("Requesting all sources.")
+                send_message(cs, "2-4-")  # Requesting all sources
+                receive_message(cs)
 
-        # This else is used to handle the error when we have a misentering of a number
-        else:
-            print("Option not on the list.")
+            elif option == 5:
+                print("Back to the main menu.")
+                break
 
-    # This elif is used to quit the program 
+            else:
+                print("Option not on the list.")
+
+    # Handle quit option
     elif option == 3:
-        # Close the Socket
+        send_message(cs, "Quit")
         cs.close()
         break
 
-    # This else is used to handle the error when we have a misentering of a number
     else:
         print("Option not on the list.")
