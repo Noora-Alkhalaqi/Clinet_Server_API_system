@@ -5,10 +5,10 @@ import pickle
 import json
 import sys
 
-# Your NewsAPI key
+# my API key
 API_KEY = "5d0fd747e02946bb8f1db8e5558ba8a5"
 
-# Global variables for managing the server
+# Global variables
 global server_socket
 global running
 
@@ -34,7 +34,7 @@ def handle_client_connection(client_socket, client_name):
                 continue
 
             request_type = request_parts[0]  # 1 for headlines, 2 for sources
-            option = request_parts[1]       # Option indicating the query type
+            option = request_parts[1]       
             key = request_parts[2] if len(request_parts) == 3 else ''  # Optional key
             group_id = "A16"  # Fixed group ID
 
