@@ -36,7 +36,7 @@ def handle_client_connection(client_socket, client_name):
             request_type = request_parts[0]  # 1 for headlines, 2 for sources
             option = request_parts[1]       
             key = request_parts[2] if len(request_parts) == 3 else ''  # Optional key
-            group_id = "A16"  # Fixed group ID
+            group_id = "A16"  # group ID
 
             # Process the request
             if request_type == '1':  # Headlines
