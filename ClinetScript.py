@@ -1,3 +1,5 @@
+from tkinter import *
+from PIL import Image, ImageTk
 import socket
 import pickle
 import tkinter as tk
@@ -22,6 +24,13 @@ class NewsClientGUI:
         self.clear_window()
 
         tk.Label(self.root, text="Welcome to the News System ", fg="#276183", bg = "#B8E2F2", font=("Arial", 16, "italic", "bold")).pack(pady=20)
+        
+        image = Image.open("Newsimg.png")
+        image = image.resize((100, 100))  
+        self.photo = ImageTk.PhotoImage(image) 
+
+        l1 = tk.Label(self.root, image=self.photo, bg = "#B8E2F2").pack(pady=5)
+
         tk.Label(self.root, text="Enter your username:", fg="#276183" , bg = "#B8E2F2", font = 14).pack(pady=10)
 
         self.username_entry = tk.Entry(self.root , bd=0)
