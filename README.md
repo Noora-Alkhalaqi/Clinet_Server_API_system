@@ -28,6 +28,11 @@ The server script listens for incoming requests from the client and responds by 
 
 
 ## Requirements
+1. Python 3 must be installed in your system  (https://www.python.org/downloads/)
+2. Download all files needed from the repository (https://github.com/HawraFadhel/ITNE352-Project)
+3. Install the required libraries by running the following command in your terminal: pip install tkinter requests json
+4. Use a text editor or IDE to open the clientScript.py and serverScript.py files and run them using
+5. Additional packeges used: 
 
 ## How to run the system
 
