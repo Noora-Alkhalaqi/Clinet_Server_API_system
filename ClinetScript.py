@@ -184,6 +184,7 @@ class NewsClientGUI:
         result_window = tk.Toplevel(self.root)
         result_window.title(f"{result_type} Results")
         result_window.geometry("800x600")
+        result_window.configure(background = "#B8E2F2")
 
         tk.Label(result_window, text=f"{result_type} Results", font=("Arial", 16), fg="#276183", bg="#B8E2F2").pack(pady=10)
 
@@ -212,7 +213,7 @@ class NewsClientGUI:
         def go_back():
             result_window.destroy()
 
-        button_frame = tk.Frame(result_window)
+        button_frame = tk.Frame(result_window, bg="#B8E2F2")
         button_frame.pack(pady=20)
 
         view_button = tk.Button(button_frame, text="View Details", command=view_details)
@@ -223,7 +224,7 @@ class NewsClientGUI:
 
     def display_details(self, details):
         """Display details of a selected item."""
-        details_window = tk.Toplevel(self.root)
+        details_window = tk.Toplevel(self.root, bg="#B8E2F2")
         details_window.title("Details")
 
         for key, value in details.items():
