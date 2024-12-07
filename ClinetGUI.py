@@ -1,7 +1,7 @@
 import socket
 import pickle
 import tkinter as tk
-from tkinter import messagebox, simpledialog, Listbox
+from tkinter import messagebox, Listbox
 
 class NewsClientGUI:
     def __init__(self):
@@ -88,9 +88,9 @@ class NewsClientGUI:
         self.clear_window()
 
         tk.Label(self.root, text="Headlines Menu", font=("Arial", 16)).pack(pady=20)
-        tk.Button(self.root, text="Search for Keywords", command=lambda: self.headlines_action("1-1")).pack(pady=10)
-        tk.Button(self.root, text="Search by Category", command=lambda: self.headlines_action("1-2")).pack(pady=10)
-        tk.Button(self.root, text="Search by Country", command=lambda: self.headlines_action("1-3")).pack(pady=10)
+        tk.Button(self.root, text="Search for Keywords", command=self.show_keyword_input).pack(pady=10)
+        tk.Button(self.root, text="Search by Category", command=self.show_category_buttons).pack(pady=10)
+        tk.Button(self.root, text="Search by Country", command=self.show_country_buttons).pack(pady=10)
         tk.Button(self.root, text="List All Headlines", command=lambda: self.headlines_action("1-4")).pack(pady=10)
         tk.Button(self.root, text="Back to Main Menu", command=self.show_main_menu).pack(pady=20)
 
@@ -99,53 +99,75 @@ class NewsClientGUI:
         self.clear_window()
 
         tk.Label(self.root, text="Sources Menu", font=("Arial", 16)).pack(pady=20)
-        tk.Button(self.root, text="Search by Category", command=lambda: self.sources_action("2-1")).pack(pady=10)
-        tk.Button(self.root, text="Search by Country", command=lambda: self.sources_action("2-2")).pack(pady=10)
-        tk.Button(self.root, text="Search by Language", command=lambda: self.sources_action("2-3")).pack(pady=10)
+        tk.Button(self.root, text="Search by Category", command=self.show_category_buttons).pack(pady=10)
+        tk.Button(self.root, text="Search by Country", command=self.show_country_buttons).pack(pady=10)
+        tk.Button(self.root, text="Search by Language", command=self.show_language_buttons).pack(pady=10)
         tk.Button(self.root, text="List All Sources", command=lambda: self.sources_action("2-4")).pack(pady=10)
         tk.Button(self.root, text="Back to Main Menu", command=self.show_main_menu).pack(pady=20)
 
+    def show_category_buttons(self):
+        """Displays buttons for category search."""
+        self.clear_window()
+
+        categories = ["business", "general", "health", "science", "sports", "technology"]
+        for category in categories:
+            tk.Button(self.root, text=category.capitalize(), command=lambda c=category: self.categories_action(c)).pack(pady=5)
+        tk.Button(self.root, text="Back to Headlines Menu", command=self.show_headlines_menu).pack(pady=20)
+
+    def show_country_buttons(self):
+        """Displays buttons for country search."""
+        self.clear_window()
+
+        countries = ["au", "ca", "jp", "ae", "sa", "kr", "us", "ma"]
+        for country in countries:
+            tk.Button(self.root, text=country.upper(), command=lambda c=country: self.headlines_action(f"1-3-{c}")).pack(pady=5)
+        tk.Button(self.root, text="Back to Headlines Menu", command=self.show_headlines_menu).pack(pady=20)
+
+    def show_language_buttons(self):
+        """Displays buttons for language search."""
+        self.clear_window()
+
+        languages = ["ar", "en"]
+        for language in languages:
+            tk.Button(self.root, text=language.upper(), command=lambda l=language: self.sources_action(f"2-3-{l}")).pack(pady=5)
+        tk.Button(self.root, text="Back to Sources Menu", command=self.show_sources_menu).pack(pady=20)
+
+    def show_keyword_input(self):
+        """Displays a text field for keyword input."""
+        self.clear_window()
+
+        tk.Label(self.root, text="Enter Keyword to Search", font=("Arial", 16)).pack(pady=20)
+
+        keyword_entry = tk.Entry(self.root, width=50)
+        keyword_entry.pack(pady=10)
+
+        def submit_keyword():
+            keyword = keyword_entry.get()
+            if keyword.strip():
+                self.headlines_action(f"1-1-{keyword}")
+            else:
+                messagebox.showwarning("Input Error", "Please enter a valid keyword.")
+        
+        tk.Button(self.root, text="Search", command=submit_keyword).pack(pady=10)
+        tk.Button(self.root, text="Back to Headlines Menu", command=self.show_headlines_menu).pack(pady=20)
+
     def headlines_action(self, action_code):
         """Handles actions related to headlines."""
-        input_value = None
-        if action_code == "1-1":  # Keyword search
-            input_value = self.get_user_input("Enter Keyword")
-            if not input_value:
-                return
-        elif action_code == "1-2":  # Category search
-            input_value = self.get_user_input("Enter Category")
-        elif action_code == "1-3":  # Country search
-            input_value = self.get_user_input("Enter Country")
-        elif action_code == "1-4":  # All headlines
-            input_value = None
+        self.send_message(action_code)
+        data_list = self.receive_message()
+        self.display_results(data_list, "Headlines")
 
-        if input_value:
-            self.send_message(f"{action_code}-{input_value}")
-        else:
-            self.send_message(action_code)
-
+    def categories_action(self, category):
+        """Handles category search."""
+        self.send_message(f"1-2-{category}")
         data_list = self.receive_message()
         self.display_results(data_list, "Headlines")
 
     def sources_action(self, action_code):
         """Handles actions related to sources."""
-        input_value = None
-        if action_code in ["2-1", "2-2", "2-3"]:  # Requires category, country, or language
-            input_value = self.get_user_input("Enter your choice")
-            if not input_value:
-                return
-
-        if input_value:
-            self.send_message(f"{action_code}-{input_value}")
-        else:
-            self.send_message(action_code)
-
+        self.send_message(action_code)
         data_list = self.receive_message()
         self.display_results(data_list, "Sources")
-
-    def get_user_input(self, prompt):
-        """Get user input via a popup."""
-        return simpledialog.askstring("Input", prompt)
 
     def display_results(self, data_list, result_type):
         """Displays results in a new window."""
@@ -156,22 +178,37 @@ class NewsClientGUI:
         tk.Label(result_window, text=f"{result_type} Results", font=("Arial", 16)).pack(pady=10)
 
         if not data_list:
-            tk.Label(result_window, text="No results found.").pack(pady=10)
+            tk.Label(result_window, text="No data found.", font=("Arial", 12), fg="red").pack(pady=10)
         else:
             result_list = Listbox(result_window, width=100, height=25)
             for idx, entry in enumerate(data_list, start=1):
-                result_list.insert(idx, f"{idx}. {entry.get('title', entry.get('name', 'Unknown'))}")
+                # Check if entry is a dictionary and contains a title or name
+                if isinstance(entry, dict):
+                    result_list.insert(idx, f"{idx}. {entry.get('title', entry.get('name', 'Unknown'))}")
+                else:
+                    result_list.insert(idx, f"{idx}. {entry}")  # In case it's a simple string or list entry
             result_list.pack(pady=10)
 
-            def view_details():
-                selected = result_list.curselection()
-                if not selected:
-                    messagebox.showwarning("Warning", "No item selected.")
-                    return
-                details = data_list[selected[0]]
-                self.display_details(details)
+        def view_details():
+            selected = result_list.curselection()
+            if not selected:
+                messagebox.showwarning("Warning", "No item selected.")
+                return
+            details = data_list[selected[0]]
+            self.display_details(details)
 
-            tk.Button(result_window, text="View Details", command=view_details).pack(pady=10)
+        def go_back():
+            result_window.destroy()
+
+        # Create "View Details" and "Back" buttons side by side
+        button_frame = tk.Frame(result_window)
+        button_frame.pack(pady=20)
+
+        view_button = tk.Button(button_frame, text="View Details", command=view_details)
+        view_button.pack(side=tk.LEFT, padx=10)
+
+        back_button = tk.Button(button_frame, text="Back", command=go_back)
+        back_button.pack(side=tk.LEFT, padx=10)
 
     def display_details(self, details):
         """Display details of a selected item."""
