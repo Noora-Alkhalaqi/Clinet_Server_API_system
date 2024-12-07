@@ -21,7 +21,7 @@ class NewsClientGUI:
         """Initialize GUI with Login Screen."""
         self.clear_window()
 
-        tk.Label(self.root, text="Welcome to the News System ", fg="#276183", bg = "#B8E2F2", font=("Arial", 16)).pack(pady=20)
+        tk.Label(self.root, text="Welcome to the News System ", fg="#276183", bg = "#B8E2F2", font=("Arial", 16, "italic", "bold")).pack(pady=20)
         tk.Label(self.root, text="Enter your username:", fg="#276183" , bg = "#B8E2F2", font = 14).pack(pady=10)
 
         self.username_entry = tk.Entry(self.root , bd=0)
@@ -79,7 +79,7 @@ class NewsClientGUI:
         """Displays the main menu."""
         self.clear_window()
 
-        tk.Label(self.root, text="Main Menu", font=("Arial", 16), fg="#276183", bg = "#B8E2F2").pack(pady=20)
+        tk.Label(self.root, text="Main Menu", font=("Arial", 16,"italic","bold"), fg="#276183", bg = "#B8E2F2").pack(pady=20)
         tk.Button(self.root, text="Search Headlines", command=self.show_headlines_menu).pack(pady=10)
         tk.Button(self.root, text="List of Sources", command=self.show_sources_menu).pack(pady=10)
         tk.Button(self.root, text="Quit", command=self.quit_client).pack(pady=20)
@@ -88,7 +88,7 @@ class NewsClientGUI:
         """Displays the headlines menu."""
         self.clear_window()
 
-        tk.Label(self.root, text="Headlines Menu", font=("Arial", 16), fg="#276183", bg = "#B8E2F2").pack(pady=20)
+        tk.Label(self.root, text="Headlines Menu", font=("Arial", 16,"italic","bold"), fg="#276183", bg = "#B8E2F2").pack(pady=20)
         tk.Button(self.root, text="Search for Keywords", command=self.show_keyword_input).pack(pady=10)
         tk.Button(self.root, text="Search by Category", command=self.show_category_buttons).pack(pady=10)
         tk.Button(self.root, text="Search by Country", command=self.show_country_buttons).pack(pady=10)
@@ -99,7 +99,7 @@ class NewsClientGUI:
         """Displays the sources menu."""
         self.clear_window()
 
-        tk.Label(self.root, text="Sources Menu", font=("Arial", 16), fg="#276183", bg = "#B8E2F2").pack(pady=20)
+        tk.Label(self.root, text="Sources Menu", font=("Arial", 16,"italic","bold"), fg="#276183", bg = "#B8E2F2").pack(pady=20)
         tk.Button(self.root, text="Search by Category", command=self.show_category_buttons).pack(pady=10)
         tk.Button(self.root, text="Search by Country", command=self.show_country_buttons).pack(pady=10)
         tk.Button(self.root, text="Search by Language", command=self.show_language_buttons).pack(pady=10)
