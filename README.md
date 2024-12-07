@@ -36,7 +36,7 @@ The server script listens for incoming requests from the client and responds by 
 ## Explanation of serverScript.py 
 The serverScript.py handles communication between the client and the News API. It listens for client requests, retrieves news data (like headlines or sources) from the API, and sends the response back to the client.
 
-- Key functions:
+- **Key functions:**
 
 Socket Communication: The server uses Python's socket library to create a TCP server that listens for incoming connections on a specified port (65432). When a client connects, the server accepts the connection and starts a new thread to handle the interaction with the client.
 
