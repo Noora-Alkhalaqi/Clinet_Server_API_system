@@ -12,6 +12,7 @@ class NewsClientGUI:
         self.root = tk.Tk()
         self.root.title("News Client")
         self.root.geometry("600x400")
+        self.root.configure(background="#9cd2f1")
 
         # Initialize the GUI
         self.initialize_gui()
