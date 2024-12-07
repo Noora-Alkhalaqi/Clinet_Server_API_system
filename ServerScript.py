@@ -38,6 +38,13 @@ def handle_client_connection(client_socket, client_name):
             key = request_parts[2] if len(request_parts) == 3 else ''  # Optional key
             group_id = "A16"  # group ID
 
+            if request_type== '1':
+                Rtype="Headlines"
+            elif request_type=='2':
+                Rtype="sources"    
+
+            print(f"Request from {client_name}: Type: {Rtype}, Option: {option}, Key: {key}")
+
             # Process the request
             if request_type == '1':  # Headlines
                 query = get_headlines_query(option, key)
@@ -56,9 +63,6 @@ def handle_client_connection(client_socket, client_name):
 
             # Send the data back to the client
             send_message_with_length(client_socket, data_list)
-
-
-            print (f"The client {client_name} has requested {request_type} with option {option} and key {key}")
 
 
             # Save the data to a JSON file
