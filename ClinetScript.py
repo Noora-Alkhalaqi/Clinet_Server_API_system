@@ -24,7 +24,7 @@ class NewsClientGUI:
         tk.Label(self.root, text="Welcome to the News System ", fg="#276183", bg = "#B8E2F2", font=("Arial", 16)).pack(pady=20)
         tk.Label(self.root, text="Enter your username:", fg="#276183" , bg = "#B8E2F2", font = 14).pack(pady=10)
 
-        self.username_entry = tk.Entry(self.root)
+        self.username_entry = tk.Entry(self.root , bd=0)
         self.username_entry.pack(pady=10)
 
         tk.Button(self.root, text="Connect to Server", command=self.connect_to_server).pack(pady=20)
@@ -139,7 +139,7 @@ class NewsClientGUI:
 
         tk.Label(self.root, text="Enter Keyword to Search", font=("Arial", 16), fg="#276183", bg = "#B8E2F2").pack(pady=20)
 
-        keyword_entry = tk.Entry(self.root, width=50)
+        keyword_entry = tk.Entry(self.root, width=50 , bd=0)
         keyword_entry.pack(pady=10)
 
         def submit_keyword():
