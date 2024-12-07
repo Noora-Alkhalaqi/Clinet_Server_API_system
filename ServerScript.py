@@ -71,7 +71,7 @@ def handle_client_connection(client_socket, client_name):
 
 def write_to_json(data_list, client_name, request_type , option, group_id):
     """Save the data to a JSON file."""
-    json_file_name = f"{client_name}{request_type}{option}_{group_id}.json"
+    json_file_name = f"{client_name}_{request_type}_{option}_{group_id}.json"
     with open(json_file_name, 'w') as json_file:
         json.dump(data_list, json_file, indent=4)
     print(f"Data written to {json_file_name}.")
