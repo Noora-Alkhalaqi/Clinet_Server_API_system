@@ -306,7 +306,7 @@ class NewsForClient:
                             break
                         
                         # sending and recieving
-                        choice += "-1"
+                        choice += "-2"
                         choice += "-"+key # Here the key can be a keyword / category / country...
                         received_list = []
                         self.send_data(choice) # Choice format is : (headline_menu choice) -1 -(key)
