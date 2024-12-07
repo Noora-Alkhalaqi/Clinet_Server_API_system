@@ -28,7 +28,7 @@ The server script listens for incoming requests from the client and responds by 
 
 
 ## Requirements
-1. Python 3 must be installed in your system  (https://www.python.org/downloads/)
+1. Python 3 must be installed on your system (https://www.python.org/downloads/)
 2. Download all files needed from the repository (https://github.com/HawraFadhel/ITNE352-Project)
 3. Install the required libraries by running the following command in your terminal: pip install tkinter requests json
 4. Use a text editor or IDE to open the clientScript.py and serverScript.py files and run them using
@@ -39,7 +39,7 @@ Open the files in your text editor we used ViVisual Studio Code for this project
 
 ## Explanation of clientScript.py
 The client script is a GUI application that allows users to interact with the server.
-To run the Clinet side we import the following libraries: 
+To run the Client side we import the following libraries: 
 from tkinter import *
 from PIL import Image, ImageTk
 import socket
@@ -48,7 +48,7 @@ import tkinter as tk
 from tkinter import messagebox, Listbox
 and each one of these have it own usage.
 
-Functions that is implmented in the clinetScript:
+Functions that is implmented in the client script:
 
 - def __init__(self) : This function is used to initialize the client application.
 
@@ -76,7 +76,7 @@ Functions that is implmented in the clinetScript:
 
 - def submit_keyword(): This function is used to submit the keyword search and it is inside the show_keyword_input function.
 
-All functions ubove are used to create the GUI application and to interact with the server and included in a NewsClientGUI.
+All functions above are used to create the GUI application and to interact with the server and are included in a NewsClientGUI.
 
 This is our main: 
 if __name__ == "__main__":
@@ -84,8 +84,8 @@ if __name__ == "__main__":
     app.root.mainloop()
 will save the application in a variable call app and run it using the mainloop method.
 
-The GUI work as follows:
-It will display the welcome message and will ask the user for the user name, then it will display the main menu of the application. The main menu will have the following options: Headlines, Sources, Categories, Countries, Languages, and Keyword Search. Each option will have it own GUI window. The user can interact with the server by selecting the options and entering the required information to get the news. The user can also exit the application by selecting the exit option or get more details about the news by clicking on view details.
+The GUI works as follows:
+It will display the welcome message and will ask the user for the user name, then it will display the main menu of the application. The main menu will have the following options: Headlines, Sources, Categories, Countries, Languages, and Keyword Search. Each option will have its own GUI window. The user can interact with the server by selecting the options and entering the required information to get the news. The user can also exit the application by selecting the exit option or get more details about the news by clicking on view details.
 
 ## Explanation of serverScript.py 
 The serverScript.py handles communication between the client and the News API. It listens for client requests, retrieves news data (like headlines or sources) from the API, and sends the response back to the client.
@@ -107,8 +107,8 @@ Error Handling: The server handles any errors that occur during the request proc
 Data Saving: For each client request, the server saves the fetched data into a JSON file, which includes details like the client’s name, request type, and the results fetched. This provides a record of the requests and the data returned.
 
 ## Additional concepts
-We used GUI as an Additional consept for this project and we learnd how to use it in python probrly in our project.
-this is the code for our main window aka (first window the user will see and interact with):
+We used GUI as an Additional concept for this project and learned how to use it in Python, probably in our project.
+This is the code for our main window aka (the first window the user will see and interact with):
 
 def initialize_gui(self):
         """Initialize GUI with Login Screen."""
@@ -129,10 +129,10 @@ def initialize_gui(self):
 
         tk.Button(self.root, text="Connect to Server", command=self.connect_to_server).pack(pady=20)
 
-The user will see the welcome message alongside with a photo and will be asked to enter his username. After entering the username, the user will be able to navigate between different screens (windows) until selecting the "Quit" option, which will terminate the connection and close the client. 
+The user will see the welcome message alongside a photo and will be asked to enter his username. After entering the username, the user can navigate between different screens (windows) until selecting the "Quit" option, which will terminate the connection and close the client. 
 
 ## Acknowledgments
-I would like to express my sincere gratitude to Dr.Mohamed A. Almeer for his help through out this project. And I also appreciate our teamwork that made this project possible.
+I would like to express my sincere gratitude to Dr.Mohamed A. Almeer for his help throughout this project. And I also appreciate the teamwork that made this project possible.
 
 ## Conclusion
-Through the development of this project, we have gained hands-on experience with implmenting a server -client architecture using Python's socket library and GUI programming using Tkinter and many other things. We also faced alot of deficalties and challenges but we were able to overcome them and complete the project successfully. I hope that this project will serve as a valuable learning experience for anyone who reads it.
+Through the development of this project, we have gained hands-on experience with implementing a server -client architecture using Python's socket library and GUI programming using Tkinter and many other things. We also faced a lot of difficulties and challenges but we were able to overcome them and complete the project successfully. I hope that this project will serve as a valuable learning experience for anyone who reads it.
