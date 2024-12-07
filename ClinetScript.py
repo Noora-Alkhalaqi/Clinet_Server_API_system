@@ -18,10 +18,8 @@ def receive_message(cs):
             print("No data received. Connection may have been closed.")
             return []
         
-
         message_length = int.from_bytes(raw_length, 'big')
         
-
         recv_data = b""
         while len(recv_data) < message_length:
             packet = cs.recv(4096)  
@@ -38,7 +36,6 @@ def receive_message(cs):
     except Exception as e:
         print(f"Error receiving message: {e}")
         return []
-
 
 def category_list():
     ''' Displays the category list and returns the selected category. '''
@@ -193,5 +190,5 @@ def main():
 
         cs.close()
 
-if __name__ == "__main__":
+if __name__ == "__main__":  
     main()

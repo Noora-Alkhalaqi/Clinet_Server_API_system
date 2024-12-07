@@ -30,7 +30,7 @@ def handle_client_connection(client_socket, client_name):
             # Parse the request
             request_parts = request.split('-')
             if len(request_parts) < 2 or len(request_parts) > 3:
-                client_socket.sendall(pickle.dumps(["Invalid request format."]))
+                send_message_with_length(client_socket, data_list)
                 continue
 
             request_type = request_parts[0]  # 1 for headlines, 2 for sources
@@ -55,7 +55,11 @@ def handle_client_connection(client_socket, client_name):
                 data_list = ["Invalid request type."]
 
             # Send the data back to the client
-            client_socket.sendall(pickle.dumps(data_list))
+            send_message_with_length(client_socket, data_list)
+
+
+            print (f"The client {client_name} has requested {request_type} with option {option} and key {key}")
+
 
             # Save the data to a JSON file
             write_to_json(data_list, client_name, request_type ,option, group_id)
@@ -67,7 +71,7 @@ def handle_client_connection(client_socket, client_name):
 
 def write_to_json(data_list, client_name, request_type , option, group_id):
     """Save the data to a JSON file."""
-    json_file_name = f"{client_name}_{request_type}_{option}_{group_id}.json"
+    json_file_name = f"{client_name}{request_type}{option}_{group_id}.json"
     with open(json_file_name, 'w') as json_file:
         json.dump(data_list, json_file, indent=4)
     print(f"Data written to {json_file_name}.")
@@ -141,6 +145,16 @@ def parse_item(item, data_key, count):
             "language": item['language'],
             "country": item['country']
         }
+
+def send_message_with_length(client_socket, data):
+    """Send a length-prefixed message to the client."""
+    try:
+        serialized_data = pickle.dumps(data)
+        message_length = len(serialized_data)
+        # Send the length as a 4-byte big-endian integer followed by the data
+        client_socket.sendall(message_length.to_bytes(4, 'big') + serialized_data)
+    except Exception as e:
+        print(f"Error sending data: {e}")
 
 def keyboard_input_thread():
     global running
