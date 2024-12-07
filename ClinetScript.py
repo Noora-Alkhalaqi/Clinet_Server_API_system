@@ -12,7 +12,7 @@ class NewsClientGUI:
         self.root = tk.Tk()
         self.root.title("News Client")
         self.root.geometry("600x400")
-        self.root.configure(background="#9cd2f1")
+        self.root.configure(background="#B8E2F2")
 
         # Initialize the GUI
         self.initialize_gui()
@@ -21,8 +21,8 @@ class NewsClientGUI:
         """Initialize GUI with Login Screen."""
         self.clear_window()
 
-        tk.Label(self.root, text="Welcome to the News Client", fg="#2c7097", font=("Arial", 16)).pack(pady=20)
-        tk.Label(self.root, text="Enter your username:", fg="#2c7097").pack(pady=10)
+        tk.Label(self.root, text="Welcome to the News System ", fg="#276183", bg = "#B8E2F2", font=("Arial", 16)).pack(pady=20)
+        tk.Label(self.root, text="Enter your username:", fg="#276183" , bg = "#B8E2F2", font = 14).pack(pady=10)
 
         self.username_entry = tk.Entry(self.root)
         self.username_entry.pack(pady=10)
@@ -79,7 +79,7 @@ class NewsClientGUI:
         """Displays the main menu."""
         self.clear_window()
 
-        tk.Label(self.root, text="Main Menu", font=("Arial", 16), fg="#2c7097").pack(pady=20)
+        tk.Label(self.root, text="Main Menu", font=("Arial", 16), fg="#276183", bg = "#B8E2F2").pack(pady=20)
         tk.Button(self.root, text="Search Headlines", command=self.show_headlines_menu).pack(pady=10)
         tk.Button(self.root, text="List of Sources", command=self.show_sources_menu).pack(pady=10)
         tk.Button(self.root, text="Quit", command=self.quit_client).pack(pady=20)
@@ -88,7 +88,7 @@ class NewsClientGUI:
         """Displays the headlines menu."""
         self.clear_window()
 
-        tk.Label(self.root, text="Headlines Menu", font=("Arial", 16), fg="#2c7097").pack(pady=20)
+        tk.Label(self.root, text="Headlines Menu", font=("Arial", 16), fg="#276183", bg = "#B8E2F2").pack(pady=20)
         tk.Button(self.root, text="Search for Keywords", command=self.show_keyword_input).pack(pady=10)
         tk.Button(self.root, text="Search by Category", command=self.show_category_buttons).pack(pady=10)
         tk.Button(self.root, text="Search by Country", command=self.show_country_buttons).pack(pady=10)
@@ -99,7 +99,7 @@ class NewsClientGUI:
         """Displays the sources menu."""
         self.clear_window()
 
-        tk.Label(self.root, text="Sources Menu", font=("Arial", 16), fg="#2c7097").pack(pady=20)
+        tk.Label(self.root, text="Sources Menu", font=("Arial", 16), fg="#276183", bg = "#B8E2F2").pack(pady=20)
         tk.Button(self.root, text="Search by Category", command=self.show_category_buttons).pack(pady=10)
         tk.Button(self.root, text="Search by Country", command=self.show_country_buttons).pack(pady=10)
         tk.Button(self.root, text="Search by Language", command=self.show_language_buttons).pack(pady=10)
@@ -137,7 +137,7 @@ class NewsClientGUI:
         """Displays a text field for keyword input."""
         self.clear_window()
 
-        tk.Label(self.root, text="Enter Keyword to Search", font=("Arial", 16), fg="#2c7097").pack(pady=20)
+        tk.Label(self.root, text="Enter Keyword to Search", font=("Arial", 16), fg="#276183", bg = "#B8E2F2").pack(pady=20)
 
         keyword_entry = tk.Entry(self.root, width=50)
         keyword_entry.pack(pady=10)
@@ -176,10 +176,10 @@ class NewsClientGUI:
         result_window.title(f"{result_type} Results")
         result_window.geometry("800x600")
 
-        tk.Label(result_window, text=f"{result_type} Results", font=("Arial", 16), fg="#2c7097").pack(pady=10)
+        tk.Label(result_window, text=f"{result_type} Results", font=("Arial", 16), fg="#276183", bg = "#B8E2F2").pack(pady=10)
 
         if not data_list:
-            tk.Label(result_window, text="No data found.", font=("Arial", 12), fg="red").pack(pady=10)
+            tk.Label(result_window, text="No data found.", font=("Arial", 12), fg="red", bg = "#B8E2F2").pack(pady=10)
         else:
             result_list = Listbox(result_window, width=100, height=25)
             for idx, entry in enumerate(data_list, start=1):
@@ -217,7 +217,7 @@ class NewsClientGUI:
         details_window.title("Details")
 
         for key, value in details.items():
-            tk.Label(details_window, text=f"{key}: {value}").pack(anchor='w', padx=10, pady=5)
+            tk.Label(details_window, text=f"{key}: {value}").pack(anchor='w', padx=10, pady=5, bg = "#B8E2F2")
 
     def quit_client(self):
         """Handles client quitting."""
