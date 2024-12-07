@@ -17,9 +17,9 @@ def receive_message(cs):
         if not raw_length:
             print("No data received. Connection may have been closed.")
             return []
-        
+
         message_length = int.from_bytes(raw_length, 'big')
-        
+
         recv_data = b""
         while len(recv_data) < message_length:
             packet = cs.recv(4096)  
@@ -29,9 +29,6 @@ def receive_message(cs):
 
         # Deserialize the received data
         data_list = pickle.loads(recv_data)
-        print("Received data:")
-        for entry in data_list:
-            print(entry)
         return data_list
     except Exception as e:
         print(f"Error receiving message: {e}")
@@ -75,22 +72,22 @@ def handle_headline_search(cs):
         if option == 1:
             message = input("Please enter the keyword: ")
             send_message(cs, f"1-1-{message}")  # Sending keyword search request
-            receive_message(cs)
+            data_list = receive_message(cs)
 
         elif option == 2:
             category = category_list()
             send_message(cs, f"1-2-{category}")  # Sending category search request
-            receive_message(cs)
+            data_list = receive_message(cs)
 
         elif option == 3:
             country = country_list()
             send_message(cs, f"1-3-{country}")  # Sending country search request
-            receive_message(cs)
+            data_list = receive_message(cs)
 
         elif option == 4:
             print("Requesting all headlines.")
             send_message(cs, "1-4")  # Requesting all headlines
-            receive_message(cs)
+            data_list = receive_message(cs)
 
         elif option == 5:
             print("Back to the main menu.")
@@ -98,6 +95,33 @@ def handle_headline_search(cs):
 
         else:
             print("Option not on the list.")
+            continue
+
+        if data_list:
+            while True:
+                print("\nSelect a result for more details or enter 'back' to return to the menu:")
+                for idx, entry in enumerate(data_list, start=1):
+                    print(f"{idx}. Source name :{entry['source']} , Author :{entry['author']} , Title :{entry['title']}")  # Displaying titles of the results
+                choice = input("Enter the result number or 'back': ").strip()
+
+                if choice.lower() == 'back':
+                    break  # Go back to the search menu
+
+                try:
+                    selected_idx = int(choice) - 1
+                    if 0 <= selected_idx < len(data_list):
+                        selected_item = data_list[selected_idx]
+                        print("\nSelected result details:")
+                        print(f"Title: {selected_item['title']}")
+                        print(f"Author: {selected_item['author']}")
+                        print(f"Description: {selected_item['description']}")
+                        print(f"Published at: {selected_item['publishedAt']}")
+                        print(f"URL: {selected_item['url']}")
+                        input("\nPress Enter to continue...")
+                    else:
+                        print("Invalid choice. Returning to the search menu.")
+                except ValueError:
+                    print("Invalid input. Returning to the search menu.")
 
 def handle_sources_list(cs):
     ''' Handles all list of sources-related logic. '''
@@ -119,22 +143,22 @@ def handle_sources_list(cs):
         if option == 1:
             category = category_list()
             send_message(cs, f"2-1-{category}")  # Sending category search request
-            receive_message(cs)
+            data_list = receive_message(cs)
 
         elif option == 2:
             country = country_list()
             send_message(cs, f"2-2-{country}")  # Sending country search request
-            receive_message(cs)
+            data_list = receive_message(cs)
 
         elif option == 3:
             language = language_list()
             send_message(cs, f"2-3-{language}")  # Sending language search request
-            receive_message(cs)
+            data_list = receive_message(cs)
 
         elif option == 4:
             print("Requesting all sources.")
             send_message(cs, "2-4")  # Requesting all sources
-            receive_message(cs)
+            data_list = receive_message(cs)
 
         elif option == 5:
             print("Back to the main menu.")
@@ -142,6 +166,34 @@ def handle_sources_list(cs):
 
         else:
             print("Option not on the list.")
+            continue
+
+        if data_list:
+            while True:
+                print("\nSelect a result for more details or enter 'back' to return to the menu:")
+                for idx, entry in enumerate(data_list, start=1):
+                    print(f"{idx}.source name : {entry['name']}")  # Displaying names of the sources
+                choice = input("Enter the result number or 'back': ").strip()
+
+                if choice.lower() == 'back':
+                    break  # Go back to the search menu
+
+                try:
+                    selected_idx = int(choice) - 1
+                    if 0 <= selected_idx < len(data_list):
+                        selected_item = data_list[selected_idx]
+                        print("\nSelected source details:")
+                        print(f"Name: {selected_item['name']}")
+                        print(f"Description: {selected_item['description']}")
+                        print(f"Category: {selected_item['category']}")
+                        print(f"Language: {selected_item['language']}")
+                        print(f"Country: {selected_item['country']}")
+                        print(f"URL: {selected_item['url']}")
+                        input("\nPress Enter to continue...")
+                    else:
+                        print("Invalid choice. Returning to the sources menu.")
+                except ValueError:
+                    print("Invalid input. Returning to the sources menu.")
 
 def main():
     ''' Main client logic for connecting, sending, and receiving messages. '''
@@ -190,5 +242,5 @@ def main():
 
         cs.close()
 
-if __name__ == "__main__":  
-    main()
+if __name__ == "__main__":
+    main() 
