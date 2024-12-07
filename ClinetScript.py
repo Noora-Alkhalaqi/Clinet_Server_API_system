@@ -228,7 +228,6 @@ class NewsClientGUI:
         for key, value in details.items():
             tk.Label(details_window, text=f"{key}: {value}", background="#B8E2F2").pack(anchor='w', padx=10, pady=5)
 
-
     def quit_client(self):
         """Handles client quitting."""
         if self.cs:

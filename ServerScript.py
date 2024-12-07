@@ -6,7 +6,7 @@ import json
 import sys
 
 # my API key
-API_KEY = "5d0fd747e02946bb8f1db8e5558ba8a5"
+API_KEY = "b301b6e152fb443dbfb443aef5b17f37"
 
 # Global variables
 global server_socket
