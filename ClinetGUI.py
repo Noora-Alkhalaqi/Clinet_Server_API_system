@@ -125,7 +125,7 @@ class NewsForClient:
 
                 elif choice == "1":
                     while True:
-                        scroll = False
+                        scroll = True
                         # to display the search_headlines_menu and  enable user to enter a choice
                         self.display("Menu", 40, pad)
                         self.display("1. Search for Keywords\n2. Search by Category\n3. Search by Country\n4. List All New Headlines\n5. Back to Main Menu",pad=(5, 10),)
@@ -222,10 +222,113 @@ class NewsForClient:
 
 
                 elif choice == "2":
-                    self.display("List sources:")
+                    # ==============================================================================================
+                    while True:
+                        scroll = True
+                        self.display("Menu", 40, pad)
+                        self.display("1. Search by category\n2. Search by country\n3. Search by language\n4. List all sources\n5. Back to Main Menu",pad=(5, 10),)
+                        self.display("Enter your choice number: ")
+                        self.input_text()
+                        pad = (180,5)
+                        choice = self.text_value.strip()
+                        # Make sure the choice is valid (from 1-4: 1. Search for keywords | 2. Search by category | 3. Search by country | 4. List all new headlines)
+                        if choice < "1" and choice > "4":
+                            key = ''
+                            if choice == '1': # 1. Search for category
+                                while True:
+                                    self.display('Enter a category: ', pad) 
+                                    self.display("Available categories: \n 1. Business\n 2. General \n 3. Health\n 4. Science\n 5. Sports\n 6. Technology")
+                                    self.display('# -1 to go back in menu')
+                                    self.input_text()
+                                    key = self.text_value.strip()
+                                    if key in categories or key == "-1":
+                                        break
+                                    else:
+                                        self.display("No such category, try again.", (200,5))  
+                                        pad = 5 
 
-                else:
-                    self.display("Invalid choice, try again.", pad=(100, 5))
+                                if key == "-1": 
+                                    break
+                            elif choice == '2': # 2. Search by country 
+                                while True:
+                                    while True:
+                                        countries = ["Australia", "Canada", "Japan", "United arab emirates", "Saudi arabia", "South korea","United states","Morocco"]
+                                        self.display('Enter a country: ',pad) 
+                                        self.display("Available countries: \n 1.Australia \n 2. Canada \n 3. Japan \n 4. United arab emirates\n 5. Saudi arabia \n 6. South korea \n 7. United states \n 8. Morocco " , 16, 5)
+                                        self.display('# -1 to go back in menu')
+                                        self.input_text()
+                                        key = self.text_value.strip()
+                                        if key in countries or key == "-1":
+                                            if key == "Australia":
+                                                key = "au"
+                                            elif key == "Canada":
+                                                key = "ca"
+                                            elif key == "Japan": 
+                                                key = "jp"
+                                            elif key == "United arab emirates":
+                                                key = "ae"
+                                            elif key == "Saudi arabia":
+                                                key = "sa"
+                                            elif key == "South korea": 
+                                                key = "kr"
+                                            elif key == "United states":
+                                                key = "us"
+                                            elif key == "Morocco":
+                                                key = "ma"
+                                            break
+                                        else:
+                                            self.display("No such country, try again.",pad=(200,5))  
+                                            pad = 5  
+                                    if key == "-1":
+                                        break 
+
+                            elif choice == '3': # 3. Search by lang
+                                                    while True:
+                                                        languages =["ar", "en"]
+                                                        self.display('Enter a language: ', pad) 
+                                                        self.display("Available languages: \n 1.ar \n 2.en " , 16, 5)
+                                                        self.display('-1 to go back in menu')
+                                                        self.input_text()
+                                                        key = self.text_value.strip()
+                                                        if key in languages or key == "-1":
+                                                            break
+                                                        else:
+                                                            self.display("No such laguage, try again.", (200,5))
+                                                            pad = 5
+                                                    if key == "-1":
+                                                        break 
+
+                            elif choice == '4':
+                                self.display("List All New Headlines.",pad)
+                                key = "4"
+
+                        if key == "-1":
+                            break
+                        
+                        # sending and recieving
+                        choice += "-1"
+                        choice += "-"+key # Here the key can be a keyword / category / country...
+                        received_list = []
+                        self.send_data(choice) # Choice format is : (headline_menu choice) -1 -(key)
+                        received_data = self.receive_data()
+                        #pickle is used so the received_list receives as a list not str
+                        received_list = pickle.loads(received_data)
+
+                        for data in received_list:
+                            self.display(data,pad)
+                            self.display("\n")
+                        
+                        
+                        if received_list[0] == ["no news found, or server is not reachable."]:
+                            response = "no news found, or server is not reachable."
+                            self.display(response)
+                            pad = 5
+                        
+                        elif choice == '5':
+                            break
+                        else:
+                            self.display("No such choice, try again.",(100,5))
+                            pad = 5
 
         except Exception as e:
             messagebox.showerror("Application Error", str(e))
