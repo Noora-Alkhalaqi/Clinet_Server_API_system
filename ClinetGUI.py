@@ -190,7 +190,7 @@ class NewsForClient:
 
                             elif choice == '4':
                                 self.display("List All New Headlines.",pad)
-                                key = "1-4-"
+                                key = "4"
 
                         if key == "-1":
                             break
