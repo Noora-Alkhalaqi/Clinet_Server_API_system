@@ -1,0 +1,56 @@
+[
+    {
+        "id": 1,
+        "source": "MSNBC",
+        "author": "Ja&#x27;han Jones",
+        "title": "Trump's energy secretary pick, Chris Wright, thinks climate change might be good",
+        "url": "https://www.msnbc.com/the-reidout/reidout-blog/trump-energy-secretary-chris-wright-climate-change-rcna183502",
+        "description": "President-elect Donald Trump's pick for energy secretary is a Big Oil CEO who says that climate change might actually be good.",
+        "publishedAt": "2024-12-09T22:00:15Z"
+    },
+    {
+        "id": 2,
+        "source": "Australian Financial Review",
+        "author": "Timothy Moore",
+        "title": "ASX 200 LIVE: Australian shares set to open higher on latest China stimulus hopes, RBA expected to hold cash rate steady",
+        "url": "http://www.afr.com/markets/equity-markets/asx-to-rise-on-prospect-for-bolder-china-stimulus-20241210-p5kx4o",
+        "description": "Australian shares are set to open higher. RBA decision day. Iron ore, oil, gold gain. Bitcoin stumbles. Nvidia drags Nasdaq lower. Follow updates here.",
+        "publishedAt": "2024-12-09T20:29:46Z"
+    },
+    {
+        "id": 3,
+        "source": "TalkSport",
+        "author": "Liam Hoofe",
+        "title": "Best betting sites UK | Top betting site offers for October 2024...",
+        "url": "https://talksport.com/betting/1760032/best-betting-sites-uk/",
+        "description": "Sports bettors in the UK are spoiled for choice among the best betting sites: If you want in-depth football betting markets, there is a bookmaker for you; if you want to bet on esports or TV events\u2026",
+        "publishedAt": "2024-10-04T08:45:00Z"
+    },
+    {
+        "id": 4,
+        "source": "TechCrunch",
+        "author": "Tim De Chant",
+        "title": "Mycocycle uses mushrooms to upcycle old tires and construction waste | TechCrunch",
+        "url": "https://techcrunch.com/2024/05/08/mycocycle-uses-mushrooms-to-upcycle-old-tires-and-construction-waste/",
+        "description": "The startup's fungi use their mycelium to consume oil-based rubbers and plastics, creating new bio-based materials in the process.",
+        "publishedAt": "2024-05-07T18:07:09Z"
+    },
+    {
+        "id": 5,
+        "source": "L'equipe",
+        "author": "L'EQUIPE",
+        "title": "Manchester City au complet pour la finale de la Ligue des champions",
+        "url": "https://www.lequipe.fr/Football/Actualites/Manchester-city-au-complet-pour-la-finale-de-la-ligue-des-champions/1401522",
+        "description": "Manchester City a d\u00e9voil\u00e9 un groupe de vingt-trois joueurs pour la finale de Ligue des champions samedi contre l'Inter Milan, \u00e0 Istanbul (21\u00a0heures).",
+        "publishedAt": "2023-06-08T14:46:51+00:00"
+    },
+    {
+        "id": 6,
+        "source": "New Scientist",
+        "author": null,
+        "title": "Adding wild fungi to soil could make trees store more carbon",
+        "url": "https://www.newscientist.com/article/2361604-adding-wild-fungi-to-soil-could-make-trees-store-more-carbon/",
+        "description": "A loblolly pine plantation in the state of Georgia is the test site for a start-up company trying to see if improving the fungi and other microbes in soil can help trees grow bigger and faster",
+        "publishedAt": "2023-03-01T00:00:00Z"
+    }
+]
