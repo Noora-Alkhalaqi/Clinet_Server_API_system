@@ -29,7 +29,7 @@ class NewsClientGUI:
         image = image.resize((100, 100))  
         self.photo = ImageTk.PhotoImage(image) 
 
-        l1 = tk.Label(self.root, image=self.photo, bg="#B8E2F2").pack(pady=5)
+        tk.Label(self.root, image=self.photo, bg="#B8E2F2").pack(pady=5)
 
         tk.Label(self.root, text="Enter your username:", fg="#276183", bg="#B8E2F2", font=14).pack(pady=10)
 
@@ -99,8 +99,8 @@ class NewsClientGUI:
 
         tk.Label(self.root, text="Headlines Menu", font=("Arial", 16, "italic", "bold"), fg="#276183", bg="#B8E2F2").pack(pady=20)
         tk.Button(self.root, text="Search for Keywords", command=self.show_keyword_input).pack(pady=10)
-        tk.Button(self.root, text="Search by Category", command=self.show_category_buttons).pack(pady=10)
-        tk.Button(self.root, text="Search by Country", command=self.show_country_buttons).pack(pady=10)
+        tk.Button(self.root, text="Search by Category", command=self.show_headline_categories).pack(pady=10)
+        tk.Button(self.root, text="Search by Country", command=self.show_headline_countries).pack(pady=10)
         tk.Button(self.root, text="List All Headlines", command=lambda: self.headlines_action("1-4")).pack(pady=10)
         tk.Button(self.root, text="Back to Main Menu", command=self.show_main_menu).pack(pady=20)
 
@@ -109,29 +109,47 @@ class NewsClientGUI:
         self.clear_window()
 
         tk.Label(self.root, text="Sources Menu", font=("Arial", 16, "italic", "bold"), fg="#276183", bg="#B8E2F2").pack(pady=20)
-        tk.Button(self.root, text="Search by Category", command=self.show_category_buttons).pack(pady=10)
-        tk.Button(self.root, text="Search by Country", command=self.show_country_buttons).pack(pady=10)
+        tk.Button(self.root, text="Search by Category", command=self.show_source_categories).pack(pady=10)
+        tk.Button(self.root, text="Search by Country", command=self.show_source_countries).pack(pady=10)
         tk.Button(self.root, text="Search by Language", command=self.show_language_buttons).pack(pady=10)
         tk.Button(self.root, text="List All Sources", command=lambda: self.sources_action("2-4")).pack(pady=10)
         tk.Button(self.root, text="Back to Main Menu", command=self.show_main_menu).pack(pady=20)
 
-    def show_category_buttons(self):
-        """Displays buttons for category search."""
+    def show_headline_categories(self):
+        """Displays buttons for headline category search."""
         self.clear_window()
 
         categories = ["business", "general", "health", "science", "sports", "technology"]
         for category in categories:
-            tk.Button(self.root, text=category.capitalize(), command=lambda c=category: self.categories_action(c)).pack(pady=5)
+            tk.Button(self.root, text=category.capitalize(), command=lambda c=category: self.categories_action(c, "headlines")).pack(pady=5)
         tk.Button(self.root, text="Back to Headlines Menu", command=self.show_headlines_menu).pack(pady=20)
 
-    def show_country_buttons(self):
-        """Displays buttons for country search."""
+    def show_source_categories(self):
+        """Displays buttons for source category search."""
+        self.clear_window()
+
+        categories = ["business", "general", "health", "science", "sports", "technology"]
+        for category in categories:
+            tk.Button(self.root, text=category.capitalize(), command=lambda c=category: self.categories_action(c, "sources")).pack(pady=5)
+        tk.Button(self.root, text="Back to Sources Menu", command=self.show_sources_menu).pack(pady=20)
+
+    def show_headline_countries(self):
+        """Displays buttons for headline country search."""
         self.clear_window()
 
         countries = ["au", "ca", "jp", "ae", "sa", "kr", "us", "ma"]
         for country in countries:
             tk.Button(self.root, text=country.upper(), command=lambda c=country: self.headlines_action(f"1-3-{c}")).pack(pady=5)
         tk.Button(self.root, text="Back to Headlines Menu", command=self.show_headlines_menu).pack(pady=20)
+
+    def show_source_countries(self):
+        """Displays buttons for source country search."""
+        self.clear_window()
+
+        countries = ["au", "ca", "jp", "ae", "sa", "kr", "us", "ma"]
+        for country in countries:
+            tk.Button(self.root, text=country.upper(), command=lambda c=country: self.sources_action(f"2-3-{c}")).pack(pady=5)
+        tk.Button(self.root, text="Back to Sources Menu", command=self.show_sources_menu).pack(pady=20)
 
     def show_language_buttons(self):
         """Displays buttons for language search."""
@@ -167,11 +185,16 @@ class NewsClientGUI:
         data_list = self.receive_message()
         self.display_results(data_list, "Headlines")
 
-    def categories_action(self, category):
-        """Handles category search."""
-        self.send_message(f"1-2-{category}")
-        data_list = self.receive_message()
-        self.display_results(data_list, "Headlines")
+    def categories_action(self, category, action_type):
+        """Handles category search for headlines or sources."""
+        if action_type == "headlines":
+            self.send_message(f"1-2-{category}")
+            data_list = self.receive_message()
+            self.display_results(data_list, "Headlines")
+        elif action_type == "sources":
+            self.send_message(f"2-2-{category}")
+            data_list = self.receive_message()
+            self.display_results(data_list, "Sources")
 
     def sources_action(self, action_code):
         """Handles actions related to sources."""
@@ -184,7 +207,7 @@ class NewsClientGUI:
         result_window = tk.Toplevel(self.root)
         result_window.title(f"{result_type} Results")
         result_window.geometry("800x600")
-        result_window.configure(background = "#B8E2F2")
+        result_window.configure(background="#B8E2F2")
 
         tk.Label(result_window, text=f"{result_type} Results", font=("Arial", 16), fg="#276183", bg="#B8E2F2").pack(pady=10)
 
